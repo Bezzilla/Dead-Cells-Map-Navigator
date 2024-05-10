@@ -1,7 +1,4 @@
 import customtkinter as ctk
-import tkinter as tk
-from tkinter import ttk
-from laptop_csv_reader import CSVdata
 from menu import Menu
 
 
@@ -22,7 +19,7 @@ class LaptopUI(ctk.CTk):
         self.main_menu()
 
     def main_menu(self):
-        self.menu = Menu(self)
+        Menu(self)
 
     def start(self):
         self.mainloop()
