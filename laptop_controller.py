@@ -4,8 +4,9 @@ from laptopUI import LaptopUI
 
 class LaptopController:
 
-    def __init__(self):
-        self.model = LaptopUI()
+    def __init__(self,csv_data):
+        self.data = csv_data
+        self.model = LaptopUI(self.data)
 
     def start(self):
         self.model.start()

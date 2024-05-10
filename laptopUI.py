@@ -4,7 +4,7 @@ from menu import Menu
 
 class LaptopUI(ctk.CTk):
 
-    def __init__(self):
+    def __init__(self,csv_data):
         super().__init__()
         # set up
 
@@ -18,11 +18,11 @@ class LaptopUI(ctk.CTk):
         self.columnconfigure(1, weight=6, uniform='a')
         self.main_menu()
 
+        # data
+        self.data = csv_data
+
     def main_menu(self):
         Menu(self)
 
     def start(self):
         self.mainloop()
-
-
-LaptopUI()
