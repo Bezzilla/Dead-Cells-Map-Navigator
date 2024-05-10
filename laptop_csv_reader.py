@@ -10,6 +10,8 @@ class CSVdata:
         with open(self.file_path, 'r', newline='') as file:
             reader = csv.reader(file)
             self.data = list(reader)
+            for i in range(len(self.data)):
+                self.data[i] += [str(i)]
 
     def get_data(self):
         return self.data
