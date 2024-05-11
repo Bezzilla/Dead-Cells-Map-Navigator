@@ -115,7 +115,7 @@ class Search_Panel(Panel):
     def add_to_compare_list(self):
         index = self.search_list_box.curselection()
         selected_value = self.search_list_box.get(index).split(':')
-        index = selected_value[0]  # index in self.data
+        index = selected_value[0]
         self.compare_index += [index]
         self.compare_list_box.insert('end', selected_value)
 
@@ -142,20 +142,24 @@ class Story_Panel(Panel):
         self.columnconfigure((0, 1), weight=1)
 
         self.blox_plot_price_manufactory = (
-            ctk.CTkButton(self, text="Box Plot Price"))
+            ctk.CTkButton(self, text="Box Plot"))
         self.blox_plot_price_manufactory.grid(row=0, column=0,
                                               padx=5, pady=5, sticky="w")
-        self.blox_plot_price_manufactory.configure(command=self.plot_box_)
+        self.blox_plot_price_manufactory.configure(command=self.plot_box)
 
         self.hist = ctk.CTkButton(self, text="Histogram")
-        self.hist.grid(row=0, column=1,padx=5, pady=5, sticky="w")
+        self.hist.grid(row=0, column=1, padx=5, pady=5, sticky="w")
         self.hist.configure(command=self.histogram)
-        #
-        # self.scatter_plot = ctk.CTkButton(self, text="Scatter Plot")
-        # self.scatter_plot.grid(row=0, column=2, padx=5, pady=5, sticky="w")
-        # self.scatter_plot.configure(command=self.scatter)
 
-    def plot_box_(self):
+        self.scatter_plot = ctk.CTkButton(self, text="Scatter Plot")
+        self.scatter_plot.grid(row=1, column=0, padx=5, pady=5, sticky="w")
+        self.scatter_plot.configure(command=self.scatter)
+
+        self.heatmap_plot = ctk.CTkButton(self, text="Descriptive")
+        self.heatmap_plot.grid(row=1, column=1, padx=5, pady=5, sticky="w")
+        self.heatmap_plot.configure(command=self.descriptive)
+
+    def plot_box(self):
         self.master.master.master.master.plot_box_price()
 
     def histogram(self):
@@ -163,3 +167,6 @@ class Story_Panel(Panel):
 
     def scatter(self):
         self.master.master.master.master.plot_scatter()
+
+    def descriptive(self):
+        self.master.master.master.master.show_descriptive_statistics()
