@@ -1,3 +1,4 @@
+"""This module is to create main UI for the program"""
 import customtkinter as ctk
 from CTkListbox import *
 from laptop_csv_reader import DATA_INDEX
@@ -6,8 +7,9 @@ COMPARE_DATA = []
 
 
 class Menu(ctk.CTkTabview):
-
+    """Create menu"""
     def __init__(self, parent, data):
+        """initiated component"""
         super().__init__(master=parent)
         self.grid(row=0, column=0, sticky='nsew')
         self.data = data
@@ -21,8 +23,10 @@ class Menu(ctk.CTkTabview):
 
 
 class Data_Comparison(ctk.CTkFrame):
+    """Data comparison tap"""
 
     def __init__(self, parent, data):
+        """initiated component"""
         super().__init__(master=parent, fg_color='transparent')
         self.pack(expand=True, fill='both')
         self.data = data
@@ -30,22 +34,27 @@ class Data_Comparison(ctk.CTkFrame):
 
 
 class Story_Telling(ctk.CTkFrame):
-
+    """Story telling tap"""
     def __init__(self, parent, data):
+        """initiated component"""
         super().__init__(master=parent, fg_color='transparent')
         self.pack(expand=True, fill='both')
         Story_Panel(self, data=data)
 
 
 class Panel(ctk.CTkFrame):
+    """Panel to be used in tap"""
     def __init__(self, parent):
+        """initiated component"""
         super().__init__(master=parent, fg_color='#4a4a4a')
         self.pack(fill='x', pady=4, padx=4)
 
 
 class Search_Panel(Panel):
+    """Data comparison tap UI"""
 
     def __init__(self, parent, data):
+        """initiated component"""
         super().__init__(parent=parent)
         self.data = data
         self.compare_index = []
@@ -98,6 +107,7 @@ class Search_Panel(Panel):
                                pady=5)
 
     def Search_list_box(self, event):
+        """search box """
         index = int(DATA_INDEX[self.filter_search.get()])
         count = 0
         try:
@@ -113,6 +123,7 @@ class Search_Panel(Panel):
             pass
 
     def add_to_compare_list(self):
+        """add to compare list"""
         index = self.search_list_box.curselection()
         selected_value = self.search_list_box.get(index).split(':')
         index = selected_value[0]
@@ -120,21 +131,26 @@ class Search_Panel(Panel):
         self.compare_list_box.insert('end', selected_value)
 
     def clear_button(self):
+        """clear compare list"""
         self.compare_list_box.delete(0, 'end')
 
     def del_button(self):
+        """delete item from compare list"""
         selected_index = self.compare_list_box.curselection()
         if selected_index:
             self.compare_list_box.delete(selected_index)
 
     def compare_button(self):
+        """compare the value"""
         global COMPARE_DATA
         COMPARE_DATA = self.compare_index
         self.master.master.master.master.receive_compare_data(COMPARE_DATA)
 
 
 class Story_Panel(Panel):
+    """Story telling tap UI"""
     def __init__(self, parent, data):
+        """initiated component"""
         super().__init__(parent=parent)
         self.data = data
 
@@ -160,13 +176,17 @@ class Story_Panel(Panel):
         self.heatmap_plot.configure(command=self.descriptive)
 
     def plot_box(self):
+        """plot box plot"""
         self.master.master.master.master.plot_box_price()
 
     def histogram(self):
+        """plot histogram"""
         self.master.master.master.master.plot_histogram()
 
     def scatter(self):
+        """plot scatter plot"""
         self.master.master.master.master.plot_scatter()
 
     def descriptive(self):
+        """descriptive statistic"""
         self.master.master.master.master.show_descriptive_statistics()

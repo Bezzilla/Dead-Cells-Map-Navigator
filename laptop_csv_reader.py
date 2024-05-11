@@ -1,4 +1,6 @@
+"""This module is to read csv file"""
 import csv
+
 DATA_INDEX = {
     'company': '0',
     'product': '1',
@@ -14,12 +16,16 @@ DATA_INDEX = {
     'price': '11'
 }
 
+
 class CSVdata:
+    """to read csv file"""
     def __init__(self, file_path):
+        """initiated component"""
         self.data = []
         self.file_path = file_path
 
     def read_csv(self):
+        """read the csv file"""
         with open(self.file_path, 'r', newline='') as file:
             reader = csv.reader(file)
             self.data = list(reader)
@@ -30,5 +36,5 @@ class CSVdata:
                     self.data[i] += [str(i)]
 
     def get_data(self):
+        """return data"""
         return self.data
-

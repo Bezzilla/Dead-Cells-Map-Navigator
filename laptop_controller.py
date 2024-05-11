@@ -1,3 +1,5 @@
+"""This module is to control laptopUI"""
+
 from laptopUI import *
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -7,7 +9,9 @@ import customtkinter as ctk
 
 
 class LaptopController(ctk.CTk):
+    """main control"""
     def __init__(self, csv_data):
+        """initiated component"""
         super().__init__()
 
         self.data = csv_data
@@ -36,11 +40,13 @@ class LaptopController(ctk.CTk):
         return self.master
 
     def receive_compare_data(self, compare_data):
+        """receive data from button"""
         for i in compare_data:
             self.compare_data += [self.data[int(i)]]
         self.create_compare_graph()
 
     def create_compare_graph(self):
+        """create compare graph"""
         prices = [float(item[-2]) for item in self.compare_data]
         product = [item[1] for item in self.compare_data]
 
@@ -57,6 +63,7 @@ class LaptopController(ctk.CTk):
                                     expand=True, padx=20, pady=20)
 
     def plot_box_price(self):
+        """create box plot"""
         prices = [float(item[-1]) for item in self.data if
                   item[-1].replace('.', '').isdigit()]
 
@@ -69,7 +76,7 @@ class LaptopController(ctk.CTk):
         self.plot_graph(fig)
 
     def plot_histogram(self):
-
+        """create histogram"""
         prices = [float(item[-2]) for item in self.data if item[-2].isdigit()]
 
         fig = plt.figure(figsize=(8, 6))
@@ -82,6 +89,7 @@ class LaptopController(ctk.CTk):
         self.plot_graph(fig)
 
     def plot_scatter(self):
+        """create scatter plot"""
         screen_sizes = [float(item[3]) for item in self.data if
                         item[3].replace('.', '').isdigit()]
         prices = [float(item[-1]) for item in self.data if
@@ -97,14 +105,15 @@ class LaptopController(ctk.CTk):
         self.plot_graph(fig)
 
     def show_descriptive_statistics(self):
+        """show descriptive statistic"""
         numerical_data = [
             [float(val) if val.replace('.', '').isdigit() else None for val in
              item[3:]] for item in self.data]
 
         df = pd.DataFrame(numerical_data,
                           columns=['inches', 'screenresolution', 'cpu', 'ram',
-                                   'memory', 'gpu', 'opsys', 'weight', 'price'
-                              , 'index'])
+                                   'memory', 'gpu', 'opsys', 'weight', 'price',
+                                   'index'])
 
         statistics = df.describe()
 
@@ -115,6 +124,7 @@ class LaptopController(ctk.CTk):
         descriptive.grid(row=0, column=1, padx=20, pady=20, stick="NSEW")
 
     def plot_graph(self, fig):
+        """plot graph in custom tkinter"""
         canvas = FigureCanvasTkAgg(fig, self)
         canvas.draw()
         canvas.get_tk_widget().grid(row=0, column=1, padx=20, pady=20)
