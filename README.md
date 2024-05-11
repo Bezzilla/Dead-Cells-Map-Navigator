@@ -22,6 +22,12 @@ Laptop price data set from kaggle
 
 ![image](https://github.com/Bezzilla/Laptop_price/assets/113333527/ae3c2f51-5f79-4d2f-8cbe-ad90ac218360)
 
+
+## UML Diagram
+
+![image](https://github.com/Bezzilla/Laptop_price/assets/113333527/415e0b4b-0936-4cae-8307-a9aa5740e856)
+
+
 ### Installation
 1. Clone the project
 ```
