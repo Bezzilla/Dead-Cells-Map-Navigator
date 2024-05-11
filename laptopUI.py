@@ -137,3 +137,29 @@ class Story_Panel(Panel):
     def __init__(self, parent, data):
         super().__init__(parent=parent)
         self.data = data
+
+        self.rowconfigure((0, 1, 2), weight=1)
+        self.columnconfigure((0, 1), weight=1)
+
+        self.blox_plot_price_manufactory = (
+            ctk.CTkButton(self, text="Box Plot Price"))
+        self.blox_plot_price_manufactory.grid(row=0, column=0,
+                                              padx=5, pady=5, sticky="w")
+        self.blox_plot_price_manufactory.configure(command=self.plot_box_)
+
+        self.hist = ctk.CTkButton(self, text="Histogram")
+        self.hist.grid(row=0, column=1,padx=5, pady=5, sticky="w")
+        self.hist.configure(command=self.histogram)
+        #
+        # self.scatter_plot = ctk.CTkButton(self, text="Scatter Plot")
+        # self.scatter_plot.grid(row=0, column=2, padx=5, pady=5, sticky="w")
+        # self.scatter_plot.configure(command=self.scatter)
+
+    def plot_box_(self):
+        self.master.master.master.master.plot_box_price()
+
+    def histogram(self):
+        self.master.master.master.master.plot_histogram()
+
+    def scatter(self):
+        self.master.master.master.master.plot_scatter()
