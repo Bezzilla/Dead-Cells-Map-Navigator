@@ -1,29 +1,15 @@
 import customtkinter as ctk
 from CTkListbox import *
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
+from laptop_csv_reader import DATA_INDEX
 
-DATA_INDEX = {
-    'company': '0',
-    'product': '1',
-    'typeName': '2',
-    'inches': '3',
-    'screenresolution': '4',
-    'cpu': '5',
-    'ram': '6',
-    'memory': '7',
-    'gpu': '8',
-    'opsys': '9',
-    'weight': '10',
-    'price': '11'
-}
+COMPARE_DATA = []
 
 
 class LaptopUI(ctk.CTk):
     def __init__(self, csv_data):
         super().__init__()
         self.data = csv_data
+        self.compare_data = []
 
         # set up
         ctk.set_appearance_mode('dark')
@@ -38,20 +24,14 @@ class LaptopUI(ctk.CTk):
         self.menu = Menu(self, data=self.data)
         self.menu.grid(row=0, column=0)
 
-        # Create a frame to contain the Matplotlib canvas
-        self.plot_frame = ctk.CTkFrame(self)
-        self.plot_frame.grid(row=0, column=1, sticky='nsew', padx=20, pady=20)
-
-        # Create a figure
-        self.fig = Figure()
-
-        # Create a canvas for the figure
-        self.canvas = FigureCanvasTkAgg(self.fig, master=self.plot_frame)
-        self.canvas_widget = self.canvas.get_tk_widget()
-        self.canvas_widget.pack(fill='both', expand=True)
-
     def start(self):
         self.mainloop()
+
+    def master(self):
+        return self.master
+
+    def receive_compare_data(self, compare_data):
+        self.compare_data = compare_data
 
 
 class Menu(ctk.CTkTabview):
@@ -97,7 +77,7 @@ class Search_Panel(Panel):
     def __init__(self, parent, data):
         super().__init__(parent=parent)
         self.data = data
-        self.selected_data = []
+        self.compare_index = []
 
         self.rowconfigure((0, 1, 2, 3, 4, 5, 6), weight=1)
         self.columnconfigure((0, 1, 2), weight=1)
@@ -136,7 +116,8 @@ class Search_Panel(Panel):
         self.del_button.grid(row=6, column=0, sticky='N', padx=5,
                              pady=5)
 
-        self.compare_button = ctk.CTkButton(self, text="Compare")
+        self.compare_button = ctk.CTkButton(self, text="Compare"
+                                            , command=self.compare_button)
         self.compare_button.grid(row=6, column=1, padx=5,
                                  pady=5)
 
@@ -164,6 +145,7 @@ class Search_Panel(Panel):
         index = self.search_list_box.curselection()
         selected_value = self.search_list_box.get(index).split(':')
         index = selected_value[0]  # index in self.data
+        self.compare_index += [index]
         self.compare_list_box.insert('end', selected_value)
 
     def clear_button(self):
@@ -174,9 +156,13 @@ class Search_Panel(Panel):
         if selected_index:
             self.compare_list_box.delete(selected_index)
 
+    def compare_button(self):
+        global COMPARE_DATA
+        COMPARE_DATA = self.compare_index
+        self.master.master.master.master.receive_compare_data(COMPARE_DATA)
+
 
 class Story_Panel(Panel):
     def __init__(self, parent, data):
         super().__init__(parent=parent)
         self.data = data
-        self.selected_data = []
