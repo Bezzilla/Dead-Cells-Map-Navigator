@@ -27,6 +27,10 @@ Laptop price data set from kaggle
 
 ![image](https://github.com/Bezzilla/Laptop_price/assets/113333527/415e0b4b-0936-4cae-8307-a9aa5740e856)
 
+## Sequence Diagram
+
+![image](https://github.com/Bezzilla/Laptop_price/assets/113333527/ddaeddde-4274-40db-9bd7-3d93bbd7656b)
+
 
 ### Installation
 1. Clone the project
