@@ -11,7 +11,10 @@ class CSVdata:
             reader = csv.reader(file)
             self.data = list(reader)
             for i in range(len(self.data)):
-                self.data[i] += [str(i)]
+                if str(i) == "0":
+                    self.data[i] += ["index"]
+                else:
+                    self.data[i] += [str(i)]
 
     def get_data(self):
         return self.data

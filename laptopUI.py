@@ -1,5 +1,8 @@
 import customtkinter as ctk
 from CTkListbox import *
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 
 DATA_INDEX = {
     'company': '0',
@@ -18,12 +21,11 @@ DATA_INDEX = {
 
 
 class LaptopUI(ctk.CTk):
-
     def __init__(self, csv_data):
         super().__init__()
         self.data = csv_data
-        # set up
 
+        # set up
         ctk.set_appearance_mode('dark')
         self.geometry('1000x500')
         self.minsize(900, 500)
@@ -35,6 +37,18 @@ class LaptopUI(ctk.CTk):
 
         self.menu = Menu(self, data=self.data)
         self.menu.grid(row=0, column=0)
+
+        # Create a frame to contain the Matplotlib canvas
+        self.plot_frame = ctk.CTkFrame(self)
+        self.plot_frame.grid(row=0, column=1, sticky='nsew', padx=20, pady=20)
+
+        # Create a figure
+        self.fig = Figure()
+
+        # Create a canvas for the figure
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self.plot_frame)
+        self.canvas_widget = self.canvas.get_tk_widget()
+        self.canvas_widget.pack(fill='both', expand=True)
 
     def start(self):
         self.mainloop()
@@ -52,7 +66,7 @@ class Menu(ctk.CTkTabview):
         self.add('Story telling')
 
         Data_Comparison(self.tab('Data comparison'), data=self.data)
-        Story_Telling(self.tab('Story telling'))
+        Story_Telling(self.tab('Story telling'), data=self.data)
 
 
 class Data_Comparison(ctk.CTkFrame):
@@ -66,9 +80,10 @@ class Data_Comparison(ctk.CTkFrame):
 
 class Story_Telling(ctk.CTkFrame):
 
-    def __init__(self, parent):
+    def __init__(self, parent, data):
         super().__init__(master=parent, fg_color='transparent')
         self.pack(expand=True, fill='both')
+        Story_Panel(self, data=data)
 
 
 class Panel(ctk.CTkFrame):
@@ -158,3 +173,10 @@ class Search_Panel(Panel):
         selected_index = self.compare_list_box.curselection()
         if selected_index:
             self.compare_list_box.delete(selected_index)
+
+
+class Story_Panel(Panel):
+    def __init__(self, parent, data):
+        super().__init__(parent=parent)
+        self.data = data
+        self.selected_data = []

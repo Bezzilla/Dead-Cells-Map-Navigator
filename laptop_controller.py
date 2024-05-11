@@ -1,6 +1,7 @@
 from laptop_csv_reader import CSVdata
 from laptopUI import LaptopUI
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
 
