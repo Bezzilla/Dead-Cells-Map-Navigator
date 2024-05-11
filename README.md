@@ -16,6 +16,12 @@ Laptop price data set from kaggle
 
 [Laptop price](https://www.kaggle.com/datasets/muhammetvarl/laptop-price/data)
 
+## example UI
+
+![image](https://github.com/Bezzilla/Laptop_price/assets/113333527/feab2ac9-35fc-4fa5-ad6e-8aafb748cfcd)
+
+![image](https://github.com/Bezzilla/Laptop_price/assets/113333527/ae3c2f51-5f79-4d2f-8cbe-ad90ac218360)
+
 ### Installation
 1. Clone the project
 ```
