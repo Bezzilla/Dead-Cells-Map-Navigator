@@ -72,7 +72,7 @@ class Search_Panel(Panel):
         self.search_panel = ctk.CTkEntry(self)
         self.search_panel.grid(row=1, column=0, sticky='EW', padx=5, pady=5,
                                columnspan=3)
-        self.search_panel.bind("<Return>", self.Search_list_box)
+        self.search_panel.bind("<KeyRelease>", self.Search_list_box)
 
         self.search_list_box = CTkListbox(self, width=250)
         self.search_list_box.grid(row=2, column=0, sticky='EW', padx=5,

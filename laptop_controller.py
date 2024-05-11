@@ -46,7 +46,8 @@ class LaptopController(ctk.CTk):
         self.create_compare_graph()
 
     def create_compare_graph(self):
-        """create compare graph"""
+        """Create compare graph"""
+
         prices = [float(item[-2]) for item in self.compare_data]
         product = [item[1] for item in self.compare_data]
 
@@ -57,11 +58,17 @@ class LaptopController(ctk.CTk):
         ax.set_title('Price vs Product')
         ax.grid(True)
 
-        canvas = FigureCanvasTkAgg(fig, master=self.graph_frame)
-        canvas.draw()
-        canvas.get_tk_widget().pack(side='top', fill='both',
-                                    expand=True, padx=20, pady=20)
+        self.plot_graph(fig)
 
+        compare_window = ctk.CTkToplevel(self)
+        compare_window.title("Compare Data")
+        compare_window.geometry('1100x100')
+
+        compare_label = ctk.CTkLabel(compare_window, text='\n'.join(
+            str(item) for item in self.compare_data))
+        compare_label.pack()
+
+        self.compare_data = []
     def plot_box_price(self):
         """create box plot"""
         prices = [float(item[-1]) for item in self.data if
