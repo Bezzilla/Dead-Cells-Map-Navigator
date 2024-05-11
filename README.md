@@ -1,4 +1,4 @@
-## Descriptio
+## Description
 
 The project involves analyzing a dataset containing information about various laptops. The goal is to assist users in making informed decisions 
 when choosing between different laptop options. Through data analysis, key factors such as performance, price, brand, and others will be evaluated to provide recommendations tailored to users' needs and preferences.
